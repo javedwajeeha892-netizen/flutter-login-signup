@@ -1,0 +1,156 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: LoginPage(),
+    );
+  }
+}
+
+// ---------------- LOGIN PAGE ----------------
+
+class LoginPage extends StatelessWidget {
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Login")),
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            TextField(
+              controller: emailController,
+              decoration: InputDecoration(
+                labelText: "Email",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 15),
+            TextField(
+              controller: passwordController,
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: "Password",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                if (emailController.text.isEmpty ||
+                    passwordController.text.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("Please fill all fields")),
+                  );
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                  );
+                }
+              },
+              child: Text("Login"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SignupPage()),
+                );
+              },
+              child: Text("Create Account"),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ---------------- SIGNUP PAGE ----------------
+
+class SignupPage extends StatelessWidget {
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Signup")),
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            TextField(
+              controller: nameController,
+              decoration: InputDecoration(
+                labelText: "Name",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 15),
+            TextField(
+              controller: emailController,
+              decoration: InputDecoration(
+                labelText: "Email",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 15),
+            TextField(
+              controller: passwordController,
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: "Password",
+                border: OutlineInputBorder(),
+              ),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                if (nameController.text.isEmpty ||
+                    emailController.text.isEmpty ||
+                    passwordController.text.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text("All fields required")),
+                  );
+                } else {
+                  Navigator.pop(context);
+                }
+              },
+              child: Text("Signup"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ---------------- HOME PAGE ----------------
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Home")),
+      body: Center(
+        child: Text(
+          "Welcome 🎉",
+          style: TextStyle(fontSize: 24),
+        ),
+      ),
+    );
+  }
+}
